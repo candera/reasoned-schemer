@@ -51,3 +51,12 @@
                     (== :split x)
                     (== :pea y)
                     (== (cons x (cons y '())) r))))))
+
+(deftest p54
+  (is (= [[:split :pea] [:navy :bean]]
+       (run* [r]
+             (exist [x y]
+                    (conde
+                     ((== :split x) (== :pea y))
+                     ((== :navy x) (== :bean y)))
+                    (== [x y] r))))))
