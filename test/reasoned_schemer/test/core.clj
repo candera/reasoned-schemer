@@ -36,10 +36,18 @@
              ((== :oil x) s#))))))
 
 (deftest p52
-  (is (= [:extra :virgin]
+  (is (= [:extra :olive]
            (run 2 [x]
                 (conde
                  ((== :extra x) s#)
-                 ((== :virgin x) s#)
+                 ((== :virgin x) u#)
                  ((== :olive x) s#)
                  ((== :oil x) s#))))))
+
+(deftest p53
+  (is (= [[:split :pea]]
+       (run* [r]
+             (exist [x y]
+                    (== :split x)
+                    (== :pea y)
+                    (== (cons x (cons y '())) r))))))
