@@ -69,3 +69,13 @@
                      ((== :split x) (== :pea y))
                      ((== :navy x) (== :bean y)))
                     (== [x y :soup] r))))))
+
+(defn teacupo [x]
+  (conde
+   ((== :tea x) s#)
+   ((== :cup x) s#)))
+
+(deftest p56
+  (is (= [:tea :cup]
+         (run* [x]
+               (teacupo x)))))
