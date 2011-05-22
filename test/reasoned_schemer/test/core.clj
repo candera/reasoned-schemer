@@ -60,3 +60,12 @@
                      ((== :split x) (== :pea y))
                      ((== :navy x) (== :bean y)))
                     (== [x y] r))))))
+
+(deftest p55
+  (is (= [[:split :pea :soup] [:navy :bean :soup]]
+       (run* [r]
+             (exist [x y]
+                    (conde
+                     ((== :split x) (== :pea y))
+                     ((== :navy x) (== :bean y)))
+                    (== [x y :soup] r))))))
