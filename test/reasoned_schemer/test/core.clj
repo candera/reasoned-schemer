@@ -157,3 +157,9 @@
 ;; Teaching Old Toys New Tricks
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(deftest p2-1
+  (is (= :c
+       (let [x (fn [a] a)
+                y :c]
+            (x y)))))
