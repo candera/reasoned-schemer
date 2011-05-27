@@ -40,3 +40,28 @@
        (run* [r]
              (firsto [:a :c :o :r :n] r)))))
 
+(deftest p7
+  (is (= [true]
+       (run* [q]
+             (firsto [:a :c :o :r :n] :a)
+             (== true q)))))
+
+(deftest p8
+  (is (= [:pear]
+       (run* [r]
+             (exist [x y]
+                    (firsto [r y] x)
+                    (== :pear x))))))
+
+(comment
+  (defn firsto [p a]
+    (exist [d]
+           (conso a d p))))
+
+(deftest p11
+  (is (= [[:grape :a]]
+       (run* [r]
+             (exist [x y]
+                    (firsto [:grape :raisin :pear] x)
+                    (firsto [[:a] [:b] [:c]] y)
+                    (== (lcons x y) r))))))
