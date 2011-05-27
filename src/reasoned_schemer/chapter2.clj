@@ -18,4 +18,25 @@
   (is (= :c
        (let [x (fn [a] a)
                 y :c]
-            (x y)))))
+         (x y)))))
+
+(deftest p2-2
+  (is (= [['_.0 '_.1]]
+       (run* [r]
+             (exist [y x]
+                    (== [x y] r))))))
+
+(deftest p2-3
+  (is (= [['_.0 '_.1]]
+       (run* [r]
+             (exist [v w]
+                    (== (let [x v
+                              y w]
+                          [x y])
+                        r))))))
+
+(deftest p2-6
+  (is (= [:a]
+       (run* [r]
+             (firsto [:a :c :o :r :n] r)))))
+
