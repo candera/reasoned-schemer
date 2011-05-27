@@ -1,3 +1,6 @@
 (ns reasoned-schemer.core)
 
-(defn do-something [])
+(defn set=
+  "Returns true if a and b have the same elements, regardless of order"
+  [a b]
+  (= (set a) (set b)))
