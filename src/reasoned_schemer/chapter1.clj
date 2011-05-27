@@ -14,28 +14,28 @@
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(deftest p1-40
+(deftest p40
   (is (= [true]
          (run* [q]
                (exist [x]
                       (== true x)
                       (== x q))))))
 
-(deftest p1-47
+(deftest p47
   (is (= [:olive :oil]
            (run* [x]
                  (conde
                   ((== :olive x))
                   ((== :oil x)))))))
 
-(deftest p1-49
+(deftest p49
   (is (= [:olive]
        (run 1 [x]
              (conde
               ((== :olive x))
               ((== :oil x)))))))
 
-(deftest p1-50
+(deftest p50
   (is (= [:olive '_.0 :oil]
            (run* [x]
             (conde
@@ -44,7 +44,7 @@
              (s# s#)
              ((== :oil x) s#))))))
 
-(deftest p1-52
+(deftest p52
   (is (= [:extra :olive]
            (run 2 [x]
                 (conde
@@ -53,7 +53,7 @@
                  ((== :olive x) s#)
                  ((== :oil x) s#))))))
 
-(deftest p1-53
+(deftest p53
   (is (= [[:split :pea]]
        (run* [r]
              (exist [x y]
@@ -61,7 +61,7 @@
                     (== :pea y)
                     (== (cons x (cons y '())) r))))))
 
-(deftest p1-54
+(deftest p54
   (is (= [[:split :pea] [:navy :bean]]
        (run* [r]
              (exist [x y]
@@ -70,7 +70,7 @@
                      ((== :navy x) (== :bean y)))
                     (== [x y] r))))))
 
-(deftest p1-55
+(deftest p55
   (is (= [[:split :pea :soup] [:navy :bean :soup]]
        (run* [r]
              (exist [x y]
@@ -84,12 +84,12 @@
    ((== :tea x) s#)
    ((== :cup x) s#)))
 
-(deftest p1-56
+(deftest p56
   (is (= [:tea :cup]
          (run* [x]
                (teacupo x)))))
 
-(deftest p1-57
+(deftest p57
   (is (set= [[:tea true] [:cup true] [false true]]
        (run* [r]
              (exist [x y]
@@ -98,7 +98,7 @@
                       ((== false x) (== true y)))
                      (== [x y] r))))))
 
-(deftest p1-58
+(deftest p58
   (is (set= [['_.0 '_.1] ['_.0 '_.1]]
        (run* [r]
              (exist [x y z]
@@ -109,7 +109,7 @@
                       (== x z)))
                     (== [y z] r))))))
 
-(deftest p1-59
+(deftest p59
   (is (set= [[false '_.0] ['_.0 false]]
        (run* [r]
             (exist [x y z]
@@ -121,7 +121,7 @@
                    (== false x)
                    (== [y z] r))))))
 
-(deftest p1-60
+(deftest p60
   (is (set= [false]
        (run* [q]
              (let [a (== true q)
@@ -134,7 +134,7 @@
 ;;        (s# (== q :b))))
 ;; => [:b]
 
-(deftest p1-61
+(deftest p61
   (is (set= [false]
        (run* [q]
              (let [a (== true q)
@@ -146,16 +146,3 @@
                       (s# (== false q)))]
                b)))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; CHAPTER 2
-;;
-;; Teaching Old Toys New Tricks
-;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(deftest p2-1
-  (is (= :c
-       (let [x (fn [a] a)
-                y :c]
-            (x y)))))

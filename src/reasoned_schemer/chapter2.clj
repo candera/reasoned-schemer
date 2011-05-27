@@ -14,19 +14,19 @@
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(deftest p2-1
+(deftest p1
   (is (= :c
        (let [x (fn [a] a)
                 y :c]
          (x y)))))
 
-(deftest p2-2
+(deftest p2
   (is (= [['_.0 '_.1]]
        (run* [r]
              (exist [y x]
                     (== [x y] r))))))
 
-(deftest p2-3
+(deftest p3
   (is (= [['_.0 '_.1]]
        (run* [r]
              (exist [v w]
@@ -35,7 +35,7 @@
                           [x y])
                         r))))))
 
-(deftest p2-6
+(deftest p6
   (is (= [:a]
        (run* [r]
              (firsto [:a :c :o :r :n] r)))))
