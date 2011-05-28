@@ -110,3 +110,7 @@
        (run* [l]
              (conso [:a :b :c] [:d :e] l)))))
 
+(deftest p23
+  (is (= [:d]
+       (run* [x]
+             (conso x [:a :b :c] [:d :a :b :c])))))
