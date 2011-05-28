@@ -1,7 +1,7 @@
 ;;; -*- mode: clojure; mode: clojure-test -*-
 (ns reasoned-schemer.chapter2
   (:use reasoned-schemer.core
-        ;; clojure.core.logic.prelude
+        clojure.core.logic.prelude
         clojure.core.logic.minikanren
         clojure.test)
   (:refer-clojure :exclude [== inc reify]))
@@ -65,3 +65,48 @@
                     (firsto [:grape :raisin :pear] x)
                     (firsto [[:a] [:b] [:c]] y)
                     (== (lcons x y) r))))))
+
+(deftest p15
+  (is (= [:c]
+       (run* [r]
+             (exist [v]
+                    (resto [:a :c :o :r :n] v)
+                    (firsto v r))))))
+
+(comment
+  (defn resto [p d]
+    (exist [a]
+           (== (lcons a d) p))))
+
+(deftest p18
+  (is (= [[[:raisin :pear] :a]]
+       (run* [r]
+             (exist [x y]
+                    (resto [:grape :raisin :pear] x)
+                    (firsto [[:a] [:b] [:c]] y)
+                    (== (lcons x y) r))))))
+
+(deftest p19
+  (is (= [true]
+       (run* [q]
+             (resto [:a :c :o :r :n] [:c :o :r :n])
+             (== true q)))))
+
+(deftest p20
+  (is (= [:o]
+       (run* [x]
+             (resto [:c :o :r :n] [x :r :n])))))
+
+(deftest p21
+  (is (= [[:a :c :o :r :n]]
+       (run* [l]
+             (exist [x]
+                    (resto l [:c :o :r :n])
+                    (firsto l x)
+                    (== :a x))))))
+
+(deftest p22
+  (is (= [[[:a :b :c] :d :e]]
+       (run* [l]
+             (conso [:a :b :c] [:d :e] l)))))
+
