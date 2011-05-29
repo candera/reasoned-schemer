@@ -114,3 +114,50 @@
   (is (= [:d]
        (run* [x]
              (conso x [:a :b :c] [:d :a :b :c])))))
+
+(deftest p24
+  (is (= [[:e :a :d :c]]
+       (run* [r]
+             (exist [x y z]
+                    (== [:e :a :d x] r)
+                    (conso y [:a z :c] r))))))
+
+(deftest p25
+  (is (= [:d]
+       (run* [x]
+             (conso x [:a x :c] [:d :a x :c])))))
+
+(deftest p26
+  (is (= [[:d :a :d :c]]
+       (run* [l]
+             (exist [x]
+                    (== [:d :a x :c] l)
+                    (conso x [:a x :c] l))))))
+
+(deftest p27
+  (is (= [[:d :a :d :c]]
+       (run* [l]
+            (exist [x]
+                   (conso x [:a x :c] l)
+                   (== [:d :a x :c] l))))))
+
+(defn p28-conso [a b o]
+  (== (lcons a b) o))
+
+(deftest p28
+  (is (= [[:a :b]]
+         (run* [o]
+               (p28-conso :a [:b] o)))))
+
+(deftest p29
+  (is (= [[:b :e :a :n :s]]
+         (run* [l]
+               (exist [d x y w s]
+                      (conso w [:a :n :s] s)
+                      (resto l s)
+                      (firsto l x)
+                      (== :b x)
+                      (resto l d)
+                      (firsto d y)
+                      (== :e y))))))
+
