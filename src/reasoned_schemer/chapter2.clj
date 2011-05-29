@@ -161,3 +161,42 @@
                       (firsto d y)
                       (== :e y))))))
 
+(deftest p32
+  (is (= []
+         (run* [q]
+               (nullo [:grape :raisin :pear])
+               (== true q)))))
+
+(deftest p33
+  (is (= [true]
+         (run* [q]
+               (nullo [])               ; Emailed about this - I think
+                                        ; this should be nil, not [],
+                                        ; and it should change to
+                                        ; nilo, not nullo.
+               (== true q)))))
+
+(deftest p34
+  (is (= [[]]
+         (run* [x]
+               (nullo x)))))
+
+(defn p35-nullo [x]
+  (== [] x))
+
+(deftest p35
+  (is (= [[]]
+         (run* [x]
+               (p35-nullo x)))))
+
+(deftest p38
+  (is (= []
+         (run* [q]
+               (== :pear :plum)         ; Couldn't find an eqo
+               (== true q)))))
+
+(deftest p39
+  (is (= [true]
+         (run* [q]
+               (== :plum :plum)
+               (== true q)))))
