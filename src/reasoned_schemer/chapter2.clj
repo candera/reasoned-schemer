@@ -200,3 +200,45 @@
          (run* [q]
                (== :plum :plum)
                (== true q)))))
+
+;;; p40
+(defn my-eqo [a b]
+  (== a b))
+
+(defn pair? [x]
+  (satisfies? IPair x))
+
+(deftest p41
+  (is (pair? (pair :split :pea))))
+
+(deftest p42
+  (is (= [true]
+         (run* [x]
+               (exist [y]
+                      (== x (pair? (pair :split y))))))))
+
+(deftest p43
+  (is (pair? (pair [:split] :pea))))
+
+(deftest p44
+  (is (not (pair? []))))
+
+(deftest p45
+  (is (not (pair? :pair))))
+
+(deftest p46
+  (is (not (pair? :pear))))
+
+(deftest p47
+  (is (pair? (pair :pear nil))))        ; NB
+
+(comment                                ; Not working at the moment
+  (deftest p51                          ; TODO
+    (is (= (llist [:split] :pea)
+           (lcons [:split] :pea)))))
+
+(deftest p52                            ; TODO: Not working
+  (is (= (llist '_.0 '_.1 :salad)
+       (run* [r]
+             (exist [x y]
+                    (== (lcons x (lcons y :salad)) r))))))
