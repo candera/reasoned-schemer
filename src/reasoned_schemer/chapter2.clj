@@ -164,30 +164,27 @@
 (deftest p32
   (is (= []
          (run* [q]
-               (nullo [:grape :raisin :pear])
+               (nilo [:grape :raisin :pear])
                (== true q)))))
 
 (deftest p33
   (is (= [true]
          (run* [q]
-               (nullo [])               ; Emailed about this - I think
-                                        ; this should be nil, not [],
-                                        ; and it should change to
-                                        ; nilo, not nullo.
+               (emptyo [])
                (== true q)))))
 
 (deftest p34
   (is (= [[]]
          (run* [x]
-               (nullo x)))))
+               (emptyo x)))))
 
-(defn p35-nullo [x]
+(defn p35-nilo [x]
   (== [] x))
 
 (deftest p35
   (is (= [[]]
          (run* [x]
-               (p35-nullo x)))))
+               (p35-nilo x)))))
 
 (deftest p38
   (is (= []
@@ -232,13 +229,12 @@
 (deftest p47
   (is (pair? (pair :pear nil))))        ; NB
 
-(comment                                ; Not working at the moment
-  (deftest p51                          ; TODO
-    (is (= (llist [:split] :pea)
-           (lcons [:split] :pea)))))
+(deftest p51
+  (is (= (llist [:split] :pea)
+         (lcons [:split] :pea))))
 
-(deftest p52                            ; TODO: Not working
-  (is (= (llist '_.0 '_.1 :salad)
+(deftest p52
+  (is (= [(llist '_.0 '_.1 :salad)]
        (run* [r]
              (exist [x y]
                     (== (lcons x (lcons y :salad)) r))))))
