@@ -238,3 +238,9 @@
        (run* [r]
              (exist [x y]
                     (== (lcons x (lcons y :salad)) r))))))
+
+(deftest p54
+  (is (= [true]
+       (run* [q]
+             (pairo (lcons q q))
+             (== true q)))))
