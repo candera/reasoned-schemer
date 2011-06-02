@@ -244,3 +244,25 @@
        (run* [q]
              (pairo (lcons q q))
              (== true q)))))
+
+(deftest p55
+  (is (== []
+       (run* [q]
+             (pairo [])
+             (== true q)))))
+
+(deftest p56
+  (is (== []
+       (run* [q]
+             (pairo :pair)
+             (== true q)))))
+
+(deftest p57
+  (is (== [(lcons '_.0 '_.1)]
+       (run* [x]
+             (pairo x)))))
+
+(deftest p58
+  (is (== [(lcons '_.0 :pear)]
+       (run* [r]
+             (pairo (lcons r :pear))))))
