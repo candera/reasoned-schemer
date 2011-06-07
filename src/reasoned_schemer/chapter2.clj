@@ -202,20 +202,17 @@
 (defn my-eqo [a b]
   (== a b))
 
-(defn pair? [x]
-  (satisfies? IPair x))
-
 (deftest p41
-  (is (pair? (pair :split :pea))))
+  (is (pair? (lcons :split :pea))))
 
 (deftest p42
   (is (= [true]
          (run* [x]
                (exist [y]
-                      (== x (pair? (pair :split y))))))))
+                      (== x (pair? (lcons :split y))))))))
 
 (deftest p43
-  (is (pair? (pair [:split] :pea))))
+  (is (pair? (lcons [:split] :pea))))
 
 (deftest p44
   (is (not (pair? []))))
@@ -227,7 +224,7 @@
   (is (not (pair? :pear))))
 
 (deftest p47
-  (is (pair? (pair :pear nil))))        ; NB
+  (is (pair? (lcons :pear nil))))        ; NB
 
 (deftest p51
   (is (= (llist [:split] :pea)
