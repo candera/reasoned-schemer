@@ -45,18 +45,31 @@
            (listo d)))))
 
 (deftest p7
-  (is (= '[_.0]
+  (is (= '[_.0]                         ; Fails. Returns no results
          (run* [x]
                (listo (list :a :b x :d))))))
 
-;;; This one is really pretty weird, since llist doesn't produce a
-;;; Clojure list. This whole section of the book suffers from the
-;;; impedance mismatch between what's available in Scheme and
-;;; Clojure's more advanced data structures.
+;; Note that, unlike in Scheme, there's a difference between nil and
+;; an empty list.
 (deftest p10
-  (is (= []
+  (is (= [nil]
          (run 1 [x]
                (listo (llist :a :b :c x))))))
 
-(run 5 [x]
-     (listo x))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; I'm seeing some things I don't understand. Here's what I get:
+
+(run 1 [x]
+     (listo (llist :a x :b)))           ; => ()
+
+(run 1 [x]
+     (listo (list :a x :b)))            ; => ()
+
+(run 2 [x]
+     (listo (llist :a :b x)))           ; => [nil (._0)]
+
+(run 2 [x]
+     (listo (list :a :b x)))            ; => ()
+
+
