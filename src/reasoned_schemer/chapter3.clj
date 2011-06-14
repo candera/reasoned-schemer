@@ -38,38 +38,22 @@
 
 (defn listo [l]
   (conde
-   ((nilo l) s#)
+   ((emptyo l) s#)
    ((pairo l)
     (exist [d]
            (resto l d)
            (listo d)))))
 
 (deftest p7
-  (is (= '[_.0]                         ; Fails. Returns no results
+  (is (= '[_.0]
          (run* [x]
                (listo (list :a :b x :d))))))
 
 ;; Note that, unlike in Scheme, there's a difference between nil and
 ;; an empty list.
 (deftest p10
-  (is (= [nil]
+  (is (= [[]]
          (run 1 [x]
                (listo (llist :a :b :c x))))))
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; I'm seeing some things I don't understand. Here's what I get:
-
-(run 1 [x]
-     (listo (llist :a x :b)))           ; => ()
-
-(run 1 [x]
-     (listo (list :a x :b)))            ; => ()
-
-(run 2 [x]
-     (listo (llist :a :b x)))           ; => [nil (._0)]
-
-(run 2 [x]
-     (listo (list :a :b x)))            ; => ()
 
 
