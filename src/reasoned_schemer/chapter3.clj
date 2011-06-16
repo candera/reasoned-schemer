@@ -56,4 +56,16 @@
          (run 1 [x]
                (listo (llist :a :b :c x))))))
 
+;; We use the fact that we get 100 results back as a substitute for
+;; the search not terminating. The alternative is to force the
+;; sequence and ensure that it throws StackOverflowError, which is
+;; sort of yukky.
+(deftest p13
+  (is (= 100
+         (->> 
+          (run* [x]
+                (listo (llist :a :b :c x)))
+          (take 100)
+          (count)))))
+
 
