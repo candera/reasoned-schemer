@@ -131,4 +131,32 @@
           '(() ())
           '((_.0 _.1))]
          (run 5 [x]
-             (lolo (llist '(:a :b) '(:c :d) x))))))
+              (lolo (llist '(:a :b) '(:c :d) x))))))
+
+(defn twinso [s]
+  (exist [x y]
+         (conso x y s)
+         (conso x '() y)))
+
+(deftest p32
+  (is (= [true]
+         (run* [q]
+               (twinso '(:tofu :tofu))
+               (== true q)))))
+
+(deftest p33
+  (is (= [:tofu]
+         (run* [z]
+               ;; Note: do not write this as '(z tofu)! Quoting z
+               ;; means that we're looking for the symbol z, not the
+               ;; logic variable z. Found this out the hard way. :p
+               (twinso (list z :tofu))))))
+
+(defn twinso-36 [s]
+  (exist [x]
+         (== (list x x) s)))
+
+(deftest p36
+  (is (= [:tofu]
+         (run* [q]
+               (twinso-36 (list :tofu q))))))
