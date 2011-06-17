@@ -13,3 +13,9 @@
   definition arises out of the mismatch between Scheme and Clojure."
   [x]
   (or (lcons? x) (and (coll? x) (seq x))))
+
+(defn pairo
+  "Succeeds if p is a pair-like thing."
+  [p]
+  (exist [a d]
+    (== (lcons a d) p)))
