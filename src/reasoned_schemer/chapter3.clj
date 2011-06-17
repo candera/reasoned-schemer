@@ -123,7 +123,11 @@
 ;;  (())
 ;;  (() ())
 ;;  (() () ()) 
-;;  (() () () ()) 
+;;  (() () () ())
+;;
+;; The reason for the difference is that conde in the book is a
+;; depth-first search where conde in core.logic is an interleaving
+;; one.
 (deftest p24
   (is (= ['()
           '(())
