@@ -160,3 +160,39 @@
   (is (= [:tofu]
          (run* [q]
                (twinso-36 (list :tofu q))))))
+
+(defn loto [l]
+  (conde
+   ((emptyo l) s#)
+   ((exist [a]
+           (firsto l a)
+           (twinso a))
+    (exist [d]
+           (resto l d)
+           (loto d)))))
+
+(deftest p38
+  (is (= ['()]
+         (run 1 [z]
+              (loto (llist '(:g :g) z))))))
+
+(deftest p42
+  (is (= ['()
+          '((_.0 _.0))
+          '((_.0 _.0) (_.1 _.1))
+          '((_.0 _.0) (_.1 _.1) (_.2 _.2))
+          '((_.0 _.0) (_.1 _.1) (_.2 _.2) (_.3 _.3))]
+         (run 5 [z]
+              (loto (llist '(:g :g) z))))))
+
+(deftest p45
+  (is (= ['(:e (_.0 _.0) ())
+          '(:e (_.0 _.0) ((_.1 _.1)))
+          '(:e (_.0 _.0) ((_.1 _.1) (_.2 _.2)))
+          '(:e (_.0 _.0) ((_.1 _.1) (_.2 _.2) (_.3 _.3)))
+          '(:e (_.0 _.0) ((_.1 _.1) (_.2 _.2) (_.3 _.3) (_.4 _.4)))]
+         (run 5 [r]
+              (exist [w x y z]
+                     (loto (llist (list :g :g) (list :e w) (list x y) z))
+                     (== r (list w (list x y) z)))))))
+
