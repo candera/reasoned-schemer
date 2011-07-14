@@ -199,4 +199,30 @@
               (exist [w x y z]
                      (loto (llist (list :g :g) (list :e w) (list x y) z))
                      (== r (list w (list x y) z)))))))
+(deftest p47
+  (is (= ['((:g :g) (:e :e) (_.0 _.0))
+          '((:g :g) (:e :e) (_.0 _.0) (_.1 _.1))
+          '((:g :g) (:e :e) (_.0 _.0) (_.1 _.1) (_.2 _.2))]
+       (run 3 [out]
+            (exist [w x y z]
+                   (== (llist (list :g :g) (list :e w) (list x y) z) out)
+                   (loto out))))))
 
+(defn listofo [predo l]
+  (conde
+   ((emptyo l) s#)
+   ((exist [a]
+           (firsto l a)
+           (predo a))
+    (exist [d]
+           (resto l d)
+           (listofo predo d)))))
+
+(deftest p49
+  (is (= ['((:g :g) (:e :e) (_.0 _.0))
+          '((:g :g) (:e :e) (_.0 _.0) (_.1 _.1))
+          '((:g :g) (:e :e) (_.0 _.0) (_.1 _.1) (_.2 _.2))]
+         (run 3 [out]
+              (exist [w x y z]
+                     (== out (llist (list :g :g) (list :e w) (list x y) z))
+                     (listofo twinso out))))))
