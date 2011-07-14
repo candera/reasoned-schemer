@@ -8,7 +8,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; CHAPTER 3 
+;; CHAPTER 3
 ;;
 ;; Seeing Old Friends in New Ways
 ;;
@@ -122,7 +122,7 @@
 ;; (()
 ;;  (())
 ;;  (() ())
-;;  (() () ()) 
+;;  (() () ())
 ;;  (() () () ())
 ;;
 ;; The reason for the difference is that conde in the book is a
