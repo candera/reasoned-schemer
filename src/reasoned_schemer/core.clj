@@ -1,6 +1,5 @@
 (ns reasoned-schemer.core
-  (:use clojure.core.logic.minikanren
-        clojure.core.logic.prelude)
+  (:use clojure.core.logic)
   (:refer-clojure :exclude [== inc reify]))
 
 (defn set=
@@ -17,5 +16,5 @@
 (defn pairo
   "Succeeds if p is a pair-like thing."
   [p]
-  (exist [a d]
+  (fresh [a d]
     (== (lcons a d) p)))

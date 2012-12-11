@@ -1,8 +1,7 @@
 ;;; -*- mode: clojure; mode: clojure-test -*-
 (ns reasoned-schemer.chapter3
   (:use reasoned-schemer.core
-        clojure.core.logic.prelude
-        clojure.core.logic.minikanren
+        [clojure.core.logic :exclude [is]]
         clojure.test)
   (:refer-clojure :exclude [== inc reify list?]))
 
@@ -40,7 +39,7 @@
   (conde
    ((emptyo l) s#)
    ((pairo l)
-    (exist [d]
+    (fresh [d]
            (resto l d)
            (listo d)))))
 
@@ -87,10 +86,10 @@
 (defn lolo [l]
   (conde
    ((emptyo l) s#)
-   ((exist [a]
+   ((fresh [a]
            (firsto l a)
            (listo a))
-    (exist [d]
+    (fresh [d]
            (resto l d)
            (lolo d)))))
 
@@ -102,14 +101,14 @@
 (deftest p21
   (is (= [true]
          (run* [q]
-               (exist [x y]
+               (fresh [x y]
                       (lolo '((:a :b) (x :c) (:d y)))
                       (== true q))))))
 
 (deftest p22
   (is (= [true]
          (run 1 [q]
-              (exist [x]
+              (fresh [x]
                      (lolo (llist '(:a :b) x))
                      (== true q))))))
 
@@ -138,7 +137,7 @@
               (lolo (llist '(:a :b) '(:c :d) x))))))
 
 (defn twinso [s]
-  (exist [x y]
+  (fresh [x y]
          (conso x y s)
          (conso x '() y)))
 
@@ -157,7 +156,7 @@
                (twinso (list z :tofu))))))
 
 (defn twinso-36 [s]
-  (exist [x]
+  (fresh [x]
          (== (list x x) s)))
 
 (deftest p36
@@ -168,10 +167,10 @@
 (defn loto [l]
   (conde
    ((emptyo l) s#)
-   ((exist [a]
+   ((fresh [a]
            (firsto l a)
            (twinso a))
-    (exist [d]
+    (fresh [d]
            (resto l d)
            (loto d)))))
 
@@ -196,7 +195,7 @@
           '(:e (_.0 _.0) ((_.1 _.1) (_.2 _.2) (_.3 _.3)))
           '(:e (_.0 _.0) ((_.1 _.1) (_.2 _.2) (_.3 _.3) (_.4 _.4)))]
          (run 5 [r]
-              (exist [w x y z]
+              (fresh [w x y z]
                      (loto (llist (list :g :g) (list :e w) (list x y) z))
                      (== r (list w (list x y) z)))))))
 (deftest p47
@@ -204,17 +203,17 @@
           '((:g :g) (:e :e) (_.0 _.0) (_.1 _.1))
           '((:g :g) (:e :e) (_.0 _.0) (_.1 _.1) (_.2 _.2))]
        (run 3 [out]
-            (exist [w x y z]
+            (fresh [w x y z]
                    (== (llist (list :g :g) (list :e w) (list x y) z) out)
                    (loto out))))))
 
 (defn listofo [predo l]
   (conde
    ((emptyo l) s#)
-   ((exist [a]
+   ((fresh [a]
            (firsto l a)
            (predo a))
-    (exist [d]
+    (fresh [d]
            (resto l d)
            (listofo predo d)))))
 
@@ -223,6 +222,6 @@
           '((:g :g) (:e :e) (_.0 _.0) (_.1 _.1))
           '((:g :g) (:e :e) (_.0 _.0) (_.1 _.1) (_.2 _.2))]
          (run 3 [out]
-              (exist [w x y z]
+              (fresh [w x y z]
                      (== out (llist (list :g :g) (list :e w) (list x y) z))
                      (listofo twinso out))))))
