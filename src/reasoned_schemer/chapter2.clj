@@ -1,8 +1,7 @@
 ;;; -*- mode: clojure; mode: clojure-test -*-
 (ns reasoned-schemer.chapter2
   (:use reasoned-schemer.core
-        clojure.core.logic.prelude
-        clojure.core.logic.minikanren
+        [clojure.core.logic :exclude [is]]
         clojure.test)
   (:refer-clojure :exclude [== inc reify]))
 
@@ -23,13 +22,13 @@
 (deftest p2
   (is (= [['_.0 '_.1]]
        (run* [r]
-             (exist [y x]
+             (fresh [y x]
                     (== [x y] r))))))
 
 (deftest p3
   (is (= [['_.0 '_.1]]
        (run* [r]
-             (exist [v w]
+             (fresh [v w]
                     (== (let [x v
                               y w]
                           [x y])
@@ -49,19 +48,19 @@
 (deftest p8
   (is (= [:pear]
        (run* [r]
-             (exist [x y]
+             (fresh [x y]
                     (firsto [r y] x)
                     (== :pear x))))))
 
 (comment
   (defn firsto [p a]
-    (exist [d]
+    (fresh [d]
            (conso a d p))))
 
 (deftest p11
   (is (= [[:grape :a]]
        (run* [r]
-             (exist [x y]
+             (fresh [x y]
                     (firsto [:grape :raisin :pear] x)
                     (firsto [[:a] [:b] [:c]] y)
                     (== (lcons x y) r))))))
@@ -69,19 +68,19 @@
 (deftest p15
   (is (= [:c]
        (run* [r]
-             (exist [v]
+             (fresh [v]
                     (resto [:a :c :o :r :n] v)
                     (firsto v r))))))
 
 (comment
   (defn resto [p d]
-    (exist [a]
+    (fresh [a]
            (== (lcons a d) p))))
 
 (deftest p18
   (is (= [[[:raisin :pear] :a]]
        (run* [r]
-             (exist [x y]
+             (fresh [x y]
                     (resto [:grape :raisin :pear] x)
                     (firsto [[:a] [:b] [:c]] y)
                     (== (lcons x y) r))))))
@@ -100,7 +99,7 @@
 (deftest p21
   (is (= [[:a :c :o :r :n]]
        (run* [l]
-             (exist [x]
+             (fresh [x]
                     (resto l [:c :o :r :n])
                     (firsto l x)
                     (== :a x))))))
@@ -118,7 +117,7 @@
 (deftest p24
   (is (= [[:e :a :d :c]]
        (run* [r]
-             (exist [x y z]
+             (fresh [x y z]
                     (== [:e :a :d x] r)
                     (conso y [:a z :c] r))))))
 
@@ -130,14 +129,14 @@
 (deftest p26
   (is (= [[:d :a :d :c]]
        (run* [l]
-             (exist [x]
+             (fresh [x]
                     (== [:d :a x :c] l)
                     (conso x [:a x :c] l))))))
 
 (deftest p27
   (is (= [[:d :a :d :c]]
        (run* [l]
-            (exist [x]
+            (fresh [x]
                    (conso x [:a x :c] l)
                    (== [:d :a x :c] l))))))
 
@@ -152,7 +151,7 @@
 (deftest p29
   (is (= [[:b :e :a :n :s]]
          (run* [l]
-               (exist [d x y w s]
+               (fresh [d x y w s]
                       (conso w [:a :n :s] s)
                       (resto l s)
                       (firsto l x)
@@ -208,7 +207,7 @@
 (deftest p42
   (is (= [true]
          (run* [x]
-               (exist [y]
+               (fresh [y]
                       (== x (pair? (lcons :split y))))))))
 
 (deftest p43
@@ -233,7 +232,7 @@
 (deftest p52
   (is (= [(llist '_.0 '_.1 :salad)]
        (run* [r]
-             (exist [x y]
+             (fresh [x y]
                     (== (lcons x (lcons y :salad)) r))))))
 
 (deftest p54
